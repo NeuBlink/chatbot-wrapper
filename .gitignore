@@ -5,6 +5,8 @@ __pycache__
 *.pyo
 *.pyz
 
+.DS_Store
+
 # virtual environment
 venv/
 
@@ -21,3 +23,4 @@ instance/
 logs/
 
 start.sh
+langchain-convo-chain/
