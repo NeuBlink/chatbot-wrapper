@@ -3,7 +3,7 @@ repos:
     hooks:
     -   id: unit-tests
         name: Run unit tests
-        entry: bash -c 'source langchain-convo-chain/bin/activate && langchain-convo-chain/bin/python -m unittest tests.test_unit_all'
+        entry: bash -c 'source langchain-convo-chain/bin/activate && python -m unittest tests.test_unit_all'
         language: system
         types: [python]
         pass_filenames: false
