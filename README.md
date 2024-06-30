@@ -10,26 +10,23 @@ This project is licensed under the terms of the MIT license.
 
 To install the application, you need to have Python installed on your machine. You also need to install the required Python packages. 
 
-First, you may want to create a virtual environment to isolate the dependencies for this project. You can do this using `virtualenv`:
+First, create a virtual environment to isolate the dependencies for this project:
 
 ```bash
-# Install virtualenv
-pip install virtualenv
-
 # Create a virtual environment
-virtualenv --python=python3 venv
+python -m venv venv
 
 # Activate the virtual environment
-source venv/bin/activate
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-Then, you can install the required packages using the `requirements.txt` file:
+Then, install the required packages:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Next, you need to set up your environment variables. Copy the `.env.sample` file to a new file named `.env` and replace the placeholders with your actual values:
+Next, set up your environment variables:
 
 ```bash
 cp .env.sample .env
@@ -40,31 +37,74 @@ cp .env.sample .env
 
 The application is structured into five main Python files:
 
-1. `app.py`: This is the main Flask application file. It sets up the Flask application and defines the routes for the application.
-
-2. `Chatbot.py`: This file defines the Chatbot class. The Chatbot class connects to a MongoDB database and provides methods for managing users.
-
-3. `User.py`: This file defines the User class. The User class represents a user of the chatbot and provides methods for generating responses to user's questions.
-
-4. `memory.py`: This file provides functions for managing a user's conversation history.
-
-5. `config.py`: This file provides functions for setting up logging and retrieving environment variables.
+1. `app.py`: The main Flask application file.
+2. `Chatbot.py`: Defines the Chatbot class for managing users.
+3. `User.py`: Defines the User class for generating responses.
+4. `memory.py`: Provides functions for managing conversation history.
+5. `config.py`: Sets up logging and retrieves environment variables.
 
 ## Usage
 
-To run the application, execute the `app.py` file:
+To run the application:
 
 ```bash
 python app.py
 ```
 
-The application runs a web server that listens for HTTP POST requests on the `/process` endpoint. The POST request should contain a JSON object with the following properties:
+The application listens for HTTP POST requests on the `/process` endpoint. The POST request should contain a JSON object with:
 
 - `username`: The username of the user.
 - `message_input`: The message input from the user.
-- `input_type`: The type of the input. Currently, only 'text' input type is supported.
+- `input_type`: The type of the input (currently, only 'text' is supported).
 
-The application responds with a JSON object that contains the chatbot's response to the user's input.
+## Development Setup
+
+1. Clone the repository
+2. Create and activate a virtual environment
+3. Install dependencies: `pip install -r requirements.txt`
+4. Setup pre-commit hooks: 
+   ```
+   pre-commit install
+   ```
+
+## Testing
+
+This project includes both unit tests and functional tests.
+
+To run only unit tests:
+```bash
+python -m unittest tests.test_unit_all
+```
+
+To run only functional tests:
+```bash
+python -m unittest tests.test_functional
+```
+
+To run all tests (unit and functional):
+```bash
+python -m unittest discover tests
+```
+
+Note: Functional tests require a running MongoDB instance and will use your OpenAI API key.
+
+## Development Workflow
+
+1. Make your changes in a new git branch.
+2. Ensure that the pre-commit hooks are installed (see Development Setup).
+3. Commit your changes. The pre-commit hook will automatically run unit tests.
+4. Push your branch and create a Pull Request to the main branch.
+5. GitHub Actions will automatically run both unit and functional tests on your PR.
+6. Ensure all tests pass before merging the PR.
+
+## Continuous Integration
+
+This project uses GitHub Actions for continuous integration. Every pull request to the main branch will trigger:
+
+- Unit tests
+- Functional tests (including database interactions)
+
+Ensure that all tests pass before merging pull requests.
 
 ## Contributing
 
@@ -77,7 +117,3 @@ If you encounter any issues or have any questions, please open an issue on GitHu
 ## Authors and Acknowledgement
 
 This project was created by Charles Adedotun.
-
-## License
-
-This project is licensed under the terms of the MIT license.

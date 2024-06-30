@@ -1,0 +1,10 @@
+repos:
+-   repo: local
+    hooks:
+    -   id: unit-tests
+        name: Run unit tests
+        entry: bash -c 'source venv/bin/activate && python -m unittest tests.test_unit_all'
+        language: system
+        types: [python]
+        pass_filenames: false
+        always_run: true
