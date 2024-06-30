@@ -32,8 +32,12 @@ jobs:
         pip install -r requirements.txt
     
     - name: Run unit tests
+      env:
+        MONGODB_URI: mongodb://localhost:27017/test_db
+        MONGODB_DB_NAME: test_db
+        OPENAI_API_KEY: sk-mock-api-key    
       run: python -m unittest tests.test_unit_all
-      
+  
     - name: Run functional tests
       env:
         MONGODB_URI: mongodb://localhost:27017/test_db
